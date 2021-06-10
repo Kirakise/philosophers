@@ -63,7 +63,23 @@ int start(t_all *all)
         usleep(100);
     }
     return (0);
+}
 
+void freeall(t_all *all)
+{
+    int i;
+
+    i = 0;
+    while (i < all->amount)
+    {
+        pthread_mutex_destroy(&all->forks[i]);
+        pthread_mutex_destroy(&all->philos[i].act);
+        i++;
+    }
+    free(all->forks);
+    free(all->philos);
+    pthread_mutex_destroy(&all->able_write);
+    pthread_mutex_destroy(&all->dead);
 }
 int main(int argc, char **argv)
 {
@@ -74,5 +90,6 @@ int main(int argc, char **argv)
     if (start(&all))
         return (-1);
     pthread_mutex_lock(&all.dead);
+    getc(stdin);
     return (0);
 }

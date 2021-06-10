@@ -20,7 +20,6 @@ typedef struct s_philo{
     int eatcount;
     struct s_all *parent;
     pthread_mutex_t act;
-    pthread_mutex_t eat_m;
 
 }               t_philo;
 
